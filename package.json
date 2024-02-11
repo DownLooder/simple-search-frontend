@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.9",
     "@mui/material": "latest",
     "@mui/material-nextjs": "latest",
+    "@prisma/client": "^5.9.1",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
@@ -26,6 +27,7 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "prisma": "^5.9.1",
     "typescript": "latest"
   }
 }

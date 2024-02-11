@@ -1,98 +1,43 @@
-import { InfoResponse, VideoItem } from "@/lib/types";
-import { MoreVert } from "@mui/icons-material";
-import {
-  Card,
-  CardHeader,
-  Skeleton,
-  Avatar,
-  IconButton,
-  CardMedia,
-  CardContent,
-  Typography,
-} from "@mui/material";
-import React, { ReactNode } from "react";
+import { Skeleton, Typography, Box } from "@mui/material";
+import { Video } from "@prisma/client";
+import Image from "next/image";
+import React from "react";
 
 interface VideosProps {
-  loading: boolean;
-  data: VideoItem;
-  children?: ReactNode;
+  loading?: boolean;
+  data?: Video;
 }
 
-const VideoCard: React.FC<VideosProps> = ({ data, loading, children }) => {
+const VideoCard: React.FC<VideosProps> = ({ data, loading }) => {
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
-      <CardHeader
-        avatar={
-          loading ? (
-            <Skeleton
-              animation="wave"
-              variant="circular"
-              width={40}
-              height={40}
-            />
-          ) : (
-            <Avatar
-              alt="Ted talk"
-              src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-            />
-          )
-        }
-        action={
-          loading ? null : (
-            <IconButton aria-label="settings">
-              <MoreVert />
-            </IconButton>
-          )
-        }
-        title={
-          loading ? (
-            <Skeleton
-              animation="wave"
-              height={10}
-              width="80%"
-              style={{ marginBottom: 6 }}
-            />
-          ) : (
-            "Ted"
-          )
-        }
-        subheader={
-          loading ? (
-            <Skeleton animation="wave" height={10} width="40%" />
-          ) : (
-            "5 hours ago"
-          )
-        }
-      />
+    <Box sx={{ width: 210, marginRight: 0.5, my: 5 }}>
       {loading ? (
-        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+        <Skeleton variant="rectangular" width={210} height={118} />
       ) : (
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-          alt="Nicola Sturgeon on a TED talk stage"
+        <Image
+          alt={data?.title as string}
+          src={data?.thumbnail as string}
+          width={210}
+          height={118}
         />
       )}
-      <CardContent>
-        {loading ? (
-          <React.Fragment>
-            <Skeleton
-              animation="wave"
-              height={10}
-              style={{ marginBottom: 6 }}
-            />
-            <Skeleton animation="wave" height={10} width="80%" />
-          </React.Fragment>
-        ) : (
-          <Typography variant="body2" color="text.secondary" component="p">
-            {
-              "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-            }
+
+      {loading ? (
+        <Box sx={{ pt: 0.5 }}>
+          <Skeleton />
+          <Skeleton width="60%" />
+        </Box>
+      ) : (
+        <Box sx={{ pr: 2 }}>
+          <Typography gutterBottom variant="body2">
+            {data?.title as string}
           </Typography>
-        )}
-      </CardContent>
-    </Card>
+          <Typography display="block" variant="caption" color="text.secondary">
+            {data?.createdAt.toLocaleDateString()}
+          </Typography>
+        </Box>
+      )}
+    </Box>
   );
 };
 

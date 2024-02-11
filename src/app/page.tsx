@@ -7,8 +7,10 @@ import NextLink from 'next/link';
 import ProTip from '@/components/ProTip';
 import Copyright from '@/components/Copyright';
 import Search from "@/components/Search";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  // const { id } = useParams() as { id: string };
   return (
     <Container maxWidth="lg">
       <Box
@@ -20,11 +22,10 @@ export default function Home() {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Home
+        <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
+         "Home"
         </Typography>
 
-        <Search />
         <ProTip />
         <Copyright />
       </Box>
