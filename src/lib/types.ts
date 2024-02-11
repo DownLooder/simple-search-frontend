@@ -5,13 +5,24 @@ export interface InfoRequest {
   format: Format;
 }
 
-export interface InfoResponse {
-  createdAt: Date;
+export interface Info {
+  createdAt: string;
   etag: string;
   id: number;
   nextPageToken: string;
   previousPageToken: string;
   query: string;
+  results: VideoItem[];
+}
+export interface VideoItem {
+  createdAt: string;
+  etag: string;
+  id: number;
+  thumbnail: string;
+  title: string;
+  videoId: string;
 }
 
-export interface Info extends Response {}
+export interface InfoResponse extends Info {
+  error?: string;
+}

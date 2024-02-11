@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "./constants";
-import { Info, InfoRequest, Response } from "./types";
+import { Info, InfoRequest, InfoResponse } from "./types";
 
 export async function requestInfo(info: InfoRequest) {
   const url = new URL("info", BASE_API_URL);
@@ -16,9 +16,9 @@ export async function requestInfo(info: InfoRequest) {
     console.log("there was an issue");
     const error = await response.text();
     console.log(error);
-    return { error } as Response;
+    return { error };
   }
   const json = await response.json();
-  console.log({ json });
-  return json as Info;
+  // console.log({ json });
+  return json as InfoResponse;
 }
