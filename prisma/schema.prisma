@@ -8,27 +8,28 @@ datasource db {
 }
 
 model Info {
-  createdAt          DateTime       @db.Timestamp(6) @map("created_at")
-  id                 BigInt         @id @map("resp_id")
-  etag               String?        @db.VarChar(255)
-  nextPageToken      String?        @db.VarChar(255) @map("next_page_token")
-  previousPageToken  String?        @db.VarChar(255) @map("previous_page_token")
-  query              String?        @db.VarChar(255)
-  videos             Video[] 
+  createdAt         DateTime @map("created_at") @db.Timestamp(6)
+  id                BigInt   @id @map("resp_id")
+  etag              String?  @db.VarChar(255)
+  nextPageToken     String?  @map("next_page_token") @db.VarChar(255)
+  previousPageToken String?  @map("previous_page_token") @db.VarChar(255)
+  query             String?  @db.VarChar(255)
+  videos            Video[]
 
   @@map("search_response")
 }
 
 model Video {
-  createdAt      DateTime         @db.Timestamp(6) @map("created_at")
-  responseId      BigInt?          @map("fk_resp_id")
-  id              BigInt           @id
-  etag            String?          @db.VarChar(255)
-  thumbnail       String?          @db.VarChar(255)
-  title           String?          @db.VarChar(255)
-  videoId        String?          @db.VarChar(255) @map("video_id")
-  webpageUrl     String?          @db.VarChar(255) @map("webpage_url")
-  infoResponse    Info?    @relation(fields: [responseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk9kv2mjqyfaqh6xblia88t7hlr")
+  createdAt    DateTime  @map("created_at") @db.Timestamp(6)
+  responseId   BigInt?   @map("fk_resp_id")
+  id           BigInt    @id
+  publishDate  DateTime? @map("publish_date") @db.Timestamp(6)
+  etag         String?   @db.VarChar(255)
+  thumbnail    String?   @db.VarChar(255)
+  title        String?   @db.VarChar(255)
+  videoId      String?   @map("video_id") @db.VarChar(255)
+  webpageUrl   String?   @map("webpage_url") @db.VarChar(255)
+  infoResponse Info?     @relation(fields: [responseId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk9kv2mjqyfaqh6xblia88t7hlr")
 
-  @@map("video_result")  
+  @@map("video_result")
 }
