@@ -1,6 +1,6 @@
 "use client";
 
-import { Format, VideoItem } from "@/lib/types";
+import { Format } from "@/lib/types";
 import { requestInfo } from "@/lib/actions";
 
 import {
